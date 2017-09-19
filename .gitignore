@@ -4,4 +4,4 @@ DerivedDataCache/
 Intermediate/
 Saved/
 Content/
-*.VC.db*
+.vs/
