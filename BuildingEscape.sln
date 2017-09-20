@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{8F3536DA-0C02-4164-B5B4-B2E75B86F162}"
+	ProjectSection(SolutionItems) = preProject
+		Source\BuildingEscape\PositionReport.cpp = Source\BuildingEscape\PositionReport.cpp
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{770300D8-FA41-4477-8B1B-82D1EAA1C918}"
 EndProject
