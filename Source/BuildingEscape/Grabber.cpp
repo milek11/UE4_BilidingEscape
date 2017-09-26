@@ -1,3 +1,23 @@
+//int val = 1;
+//int val2 = 2;
+//int* valPointer = &val;
+//int& valReference = val;
+//void printVals() {
+//	std::cout << "val: " << val << ", val2: " << val2 << ", valPointer: " << *valPointer << ", valReference: " << valReference << std::endl;
+//	std::cout << "val: " << &val << ", val2: " << &val2 << ", valPointer: " << valPointer << ", valReference: " << &valReference << std::endl;
+//}
+//
+//int main()
+//{
+//	printVals();
+//	valPointer = &val2;
+//	printVals();
+//	*valPointer = 3;
+//	printVals();
+//	valReference = 4;
+//	printVals();
+//	return 0;
+//}
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Grabber.h"
@@ -5,6 +25,7 @@
 #include "DrawDebugHelpers.h"
 #include "CollisionQueryParams.h"
 #include "GameFramework/Actor.h"
+#include "Components/InputComponent.h"
 
 #define OUT
 
@@ -24,10 +45,37 @@ void UGrabber::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UE_LOG(LogTemp, Warning, TEXT("Grabber reporting for duty!"));
+	UE_LOG(LogTemp, Warning, TEXT("Grabber reporting for duty!"))
 	
+	// Look for attached Physics Handle
+	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
+	if (PhysicsHandle)
+	{
+		// Physics handle found
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("%s missing physics handle component !"), *GetOwner()->GetName())
+	}
+
+	// Look for attached Input Component (only appears at run time)
+	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
+	if (InputComponent)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Input component found."));
+		/// Bind the input axis
+		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("%s missing input component !"), *GetOwner()->GetName())
+	}
 }
 
+void UGrabber::Grab()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Grab pressed"))
+}
 
 // Called every frame
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -77,4 +125,3 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 		UE_LOG(LogTemp, Warning, TEXT("%s"), *HitedActor->GetName())
 	}
 }
-
